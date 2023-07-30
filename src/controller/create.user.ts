@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import pool from "../index";
+import db from '..';
 export class CreateUser {
     constructor() {}
 
@@ -8,7 +8,7 @@ export class CreateUser {
 
         try {
           const { name, surname, age }  = req.body;
-          const user = await pool.query('INSERT INTO users(name, surname, age) VALUES($1, $2, $3)', [name, surname, age]);
+          const user = await db.query('INSERT INTO users(name, surname, age) VALUES($1, $2, $3)', [name, surname, age]);
 
           res.status(201).json('User succesfully created');
 

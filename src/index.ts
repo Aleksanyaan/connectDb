@@ -1,17 +1,10 @@
 import  express, { Request, Response, NextFunction } from 'express';
 import { userRouter } from './router/user.router';
-import * as pg from 'pg';
+import pgPromise from 'pg-promise';
 
-const { Pool } = pg;
+const pgp = pgPromise({/* Initialization Options */});
 
-const pool = new Pool({
-    user:'postgres',
-    host:'localhost',
-    port:5432,
-    database:'postgres',
-    password:'post18288'
-});
-pool.connect();
+const db = pgp('postgres://postgres:post18288@localhost:5432/postgres');
 
 const app = express();
 app.use(express.json());
@@ -34,4 +27,4 @@ app.listen(port, () => {
     console.log(`Our server is listening on port ${port}`);
 });
 
-export default pool;
+export default db;
